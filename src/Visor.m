@@ -183,7 +183,7 @@ int main(int argc, char *argv[]) {
     if (isVisoredWindow) {
         LOG(@"  in visored window ... so apply visor profile");
         id visorProfile = [Visor getVisorProfile];
-		arg1 = visorProfile;
+        arg1 = visorProfile;
     }
     return [self Visor_TTWindowController_newTabWithProfile:arg1 command:arg2 runAsShell:arg3];
 }
@@ -246,7 +246,10 @@ int main(int argc, char *argv[]) {
     /* TODO check whether there are stand alone windows, do not open visor if there are
      *      (this would mimic total finder's visor behavior) */
 
-    [visor reopenVisor];
+    id currentWindow = [self Visor_TTApplication_mainTerminalWindow];
+
+    if ([[visor window] isEqual:currentWindow])
+        [visor reopenVisor];
 }
 
 @end
