@@ -239,6 +239,18 @@ int main(int argc, char *argv[]) {
     return currentWindow;
 }
 
+- (void)Visor_TTApplication_applicationDidBecomeActive:(NSNotification *)aNotification {
+    LOG(@"Visor_TTApplication_applicationDidBecomeActive");
+    Visor *visor = [Visor sharedInstance];
+
+    /* TODO check whether there are stand alone windows, do not open visor if there are
+     *      (this would mimic total finder's visor behavior) */
+
+    if (![visor reopenVisor] && ![self mainTerminalWindow]) {
+        [self newShell:nil];
+    }
+}
+
 @end
 
 #pragma mark -
@@ -430,6 +442,7 @@ int main(int argc, char *argv[]) {
     [applicationClass jr_swizzleMethod:@selector(sendEvent:) withMethod:@selector(Visor_TTApplication_sendEvent:) error:NULL];
     [applicationClass jr_swizzleMethod:@selector(applicationShouldHandleReopen:hasVisibleWindows:) withMethod:@selector(Visor_TTApplication_applicationShouldHandleReopen:hasVisibleWindows:) error:NULL];
     [applicationClass jr_swizzleMethod:@selector(mainTerminalWindow) withMethod:@selector(Visor_TTApplication_mainTerminalWindow) error:NULL];
+    [applicationClass jr_swizzleMethod:@selector(applicationDidBecomeActive:) withMethod:@selector(Visor_TTApplication_applicationDidBecomeActive:) error:NULL];
 
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(Visor_TTAppPrefsController_windowDidLoad) error:NULL];
     [NSClassFromString(@"TTAppPrefsController") jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(Visor_TTAppPrefsController_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:NULL];
