@@ -246,9 +246,7 @@ int main(int argc, char *argv[]) {
     /* TODO check whether there are stand alone windows, do not open visor if there are
      *      (this would mimic total finder's visor behavior) */
 
-    if (![visor reopenVisor] && ![self mainTerminalWindow]) {
-        [self newShell:nil];
-    }
+    [visor reopenVisor];
 }
 
 @end
