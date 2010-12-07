@@ -682,13 +682,13 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     background = [[[NSWindow class] alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
     [background orderFront:nil];
-    [background setLevel:NSMainMenuWindowLevel-2];
+    // [background setLevel:NSMainMenuWindowLevel-2];
     [background setIgnoresMouseEvents:YES];
     [background setOpaque:NO];
     [background setHasShadow:NO];
     [background setReleasedWhenClosed:YES];
     [background setLevel:NSFloatingWindowLevel];
-    [background setHasShadow:NO];
+    // [background setHasShadow:NO];
 	float bkgAlpha = [self getVisorProfileBackgroundAlpha];
 	[background setAlphaValue:bkgAlpha];
 
@@ -750,7 +750,7 @@ static const size_t kModifierEventTypeSpecSize = sizeof(kModifierEventTypeSpec) 
 
     [self setWindow:win];
 
-    [window_ setLevel:NSMainMenuWindowLevel-1];
+    // [window_ setLevel:NSMainMenuWindowLevel-1];
     [window_ setOpaque:NO];
         
     [self updateStatusMenu];
